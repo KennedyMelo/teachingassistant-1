@@ -23,12 +23,12 @@ taserver.get('/alunos', function (req: express.Request, res: express.Response) {
 })
 
 taserver.post('/aluno', function (req: express.Request, res: express.Response) {
-  var aluno: Aluno = <Aluno> req.body; //verificar se é mesmo Aluno!
+  var aluno: Aluno = <Aluno> req.body; //verificar se ï¿½ mesmo Aluno!
   aluno = cadastro.cadastrar(aluno);
   if (aluno) {
     res.send({"success": "O aluno foi cadastrado com sucesso"});
   } else {
-    res.send({"failure": "O aluno não pode ser cadastrado"});
+    res.send({"failure": "O aluno nï¿½o pode ser cadastrado"});
   }
 })
 
@@ -38,9 +38,21 @@ taserver.put('/aluno', function (req: express.Request, res: express.Response) {
   if (aluno) {
     res.send({"success": "O aluno foi atualizado com sucesso"});
   } else {
-    res.send({"failure": "O aluno não pode ser atualizado"});
+    res.send({"failure": "O aluno nï¿½o pode ser atualizado"});
   }
 })
+
+taserver.delete('/aluno/:cpf', function (req: express.Request, res: express.Response){
+  let cpf = req.params.cpf;
+  console.log(cpf)
+  let flag: boolean = cadastro.deletar(cpf);
+  if(flag){
+    res.send({"success": "O aluno foi deletado com sucesso"})
+  } else{
+    res.send({"success": "O aluno nao foi deletado"})
+  }
+})
+
 
 taserver.listen(3000, function () {
   console.log('Example app listening on port 3000!')
